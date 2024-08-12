@@ -1,0 +1,65 @@
+﻿@model CryptoPortfolioService_Data.Entities.CryptoCurrency
+@{
+    ViewBag.Title = "UserCurrencyDetails";
+}
+
+<h2>UserCurrencyDetails</h2>
+
+<table class="table">
+    <tr>
+        <th>Name: </th>
+        <th>Quantity: </th>
+        <th>Profit: </th>        
+    </tr>
+    <tr>
+        <td>@Model.CurrencyName</td>
+        <td>@Model.Quantity</td>
+        <td>@Model.Profit</td>        
+    </tr>
+</table>
+
+<h3>Sell</h3>
+<form action="~/Portfolio/AddTransactionEntity" method="post">
+    <table class="table">
+        <tr hidden>
+            <td>Currency name</td>
+            <td><input type="text" name="currencyName" value="@Model.CurrencyName" /></td>
+        </tr>
+        <tr>
+            <td>Quantity:</td>
+            <td><input type="number" name="quantity" value="0" /></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td><input type="number" name="price" value="0" /></td>
+        </tr>
+        <tr hidden>
+            <td>Buying</td>
+            <td><input type="hidden" id="IsBuying" name="IsBuying" value="False" /></td>            
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Sell" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<h3>Set alarm</h3>
+<form action="~/Portfolio/AddAlarmEntity" method="post">
+    <table class="table">
+        <tr hidden>
+            <td>Currency name</td>
+            <td><input type="text" name="currencyName" value="@Model.CurrencyName" /></td>
+        </tr>
+        <tr>
+            <td>Profit:</td>
+            <td><input type="number" name="profit" value="0" /></td>
+        </tr>        
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Set alarm" />
+            </td>
+        </tr>
+    </table>
+</form>

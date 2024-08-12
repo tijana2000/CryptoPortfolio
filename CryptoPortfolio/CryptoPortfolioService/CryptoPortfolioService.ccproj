@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>2.9</ProductVersion>
+    <ProjectGuid>8803145b-453c-4937-8122-d2611809c3f6</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CryptoPortfolioService</RootNamespace>
+    <AssemblyName>CryptoPortfolioService</AssemblyName>
+    <StartDevelopmentStorage>True</StartDevelopmentStorage>
+    <ARMDeployment>True</ARMDeployment>
+    <Name>CryptoPortfolioService</Name>
+    <UseWebProjectPorts>False</UseWebProjectPorts>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- Items for the project -->
+  <ItemGroup>
+    <ServiceDefinition Include="ServiceDefinition.csdef" />
+    <ServiceConfiguration Include="ServiceConfiguration.Local.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CryptoPortfolioService_WebRole\CryptoPortfolioService_WebRole.csproj">
+      <Name>CryptoPortfolioService_WebRole</Name>
+      <Project>{5ea6406d-952b-46cc-87ef-12f81be8a410}</Project>
+      <Private>True</Private>
+      <RoleType>Web</RoleType>
+      <RoleName>CryptoPortfolioService_WebRole</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
+    <ProjectReference Include="..\HealthMonitoringService\HealthMonitoringService.csproj">
+      <Name>HealthMonitoringService</Name>
+      <Project>{8b5a383f-4c9a-4301-928f-1c5e278d471b}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>HealthMonitoringService</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
+    <ProjectReference Include="..\HealthStatusService_WebRole\HealthStatusService_WebRole.csproj">
+      <Name>HealthStatusService_WebRole</Name>
+      <Project>{1c588ea7-2d8b-40a7-a2c9-8ed040558566}</Project>
+      <Private>True</Private>
+      <RoleType>Web</RoleType>
+      <RoleName>HealthStatusService_WebRole</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
+    <ProjectReference Include="..\NotificationService_WorkerRole\NotificationService_WorkerRole.csproj">
+      <Name>NotificationService_WorkerRole</Name>
+      <Project>{530986b7-6c14-4f30-be21-ae1d3241e001}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>NotificationService_WorkerRole</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CryptoPortfolioService_WebRoleContent\" />
+    <Folder Include="HealthMonitoringServiceContent\" />
+    <Folder Include="HealthStatusService_WebRoleContent\" />
+    <Folder Include="NotificationService_WorkerRoleContent\" />
+  </ItemGroup>
+  <ItemGroup>
+    <DiagnosticsConfiguration Include="CryptoPortfolioService_WebRoleContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="HealthMonitoringServiceContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="HealthStatusService_WebRoleContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="NotificationService_WorkerRoleContent\diagnostics.wadcfgx" />
+  </ItemGroup>
+  <!-- Import the target files for this project template -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">16.0</VisualStudioVersion>
+    <CloudExtensionsDir Condition=" '$(CloudExtensionsDir)' == '' ">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Windows Azure Tools\2.9\</CloudExtensionsDir>
+  </PropertyGroup>
+  <Import Project="$(CloudExtensionsDir)Microsoft.WindowsAzure.targets" />
+</Project>

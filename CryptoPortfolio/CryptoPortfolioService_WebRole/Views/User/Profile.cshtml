@@ -1,0 +1,41 @@
+﻿@model CryptoPortfolioService_WebRole.Models.UserProfileModel
+@{
+    ViewBag.Title = "Profile";
+
+    string base64 = string.Empty;
+    string imgSrc = string.Empty;
+
+    if (Model.ImageBytes != null)
+    {
+        base64 = Convert.ToBase64String(Model.ImageBytes);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+}
+
+<h2>Profile</h2>
+<img src="@imgSrc" width="100" height="150"/>
+<br />
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Phone</th>        
+    </tr>
+    <tr>
+        <td>@Model.Name</td>
+        <td>@Model.Surname</td>
+        <td>@Model.Email</td>
+        <td>@Model.Address</td>
+        <td>@Model.City</td>
+        <td>@Model.Country</td>
+        <td>@Model.Phone</td>        
+    </tr>
+</table>
+    
+<button><a href="/User/EditProfile">Modify</a></button>
+<button><a href="/User/ChangePicture">Change picture</a></button>
+

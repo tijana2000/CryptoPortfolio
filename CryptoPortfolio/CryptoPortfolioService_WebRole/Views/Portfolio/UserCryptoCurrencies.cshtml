@@ -1,0 +1,36 @@
+﻿@model List<CryptoPortfolioService_Data.Entities.CryptoCurrency>
+@{
+    ViewBag.Title = "UserCryptoCurrencies";
+}
+
+<h2>UserCryptoCurrencies</h2>
+
+@{ 
+    double overallProfit = 0;    
+}
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Profit</th>        
+    </tr>
+    
+    @foreach (var cryptoCurrency in Model)
+    {
+        overallProfit += cryptoCurrency.Profit;
+        <tr>
+            <td>@cryptoCurrency.CurrencyName</td>
+            <td>@cryptoCurrency.Quantity</td>
+            <td>@cryptoCurrency.Profit</td>
+            <td><button><a href="/Portfolio/UserCurrencyDetails?currencyName=@cryptoCurrency.CurrencyName">Details</a></button></td>
+        </tr>
+    }
+
+</table>
+<table class="table">
+    <tr>
+        <th>Overall profit:</th>
+        <td>@overallProfit</td>
+    </tr>    
+</table>
