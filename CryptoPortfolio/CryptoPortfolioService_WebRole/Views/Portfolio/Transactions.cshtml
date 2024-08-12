@@ -1,0 +1,31 @@
+﻿@model List<CryptoPortfolioService_Data.Entities.Transaction>
+@{
+    ViewBag.Title = "Transactions";
+}
+
+<h2>Transactions</h2>
+
+<table class="table">
+    <tr>        
+        <th>Currency Name:</th>
+        <th>Quantity</th>
+        <th>Price per unit</th>
+        <th>Type</th>
+        <td>Made on</td>
+    </tr>
+    @{
+        foreach (var transaction in Model)
+        {
+            <tr>
+
+                <td>@transaction.CurrencyName</td>
+                <td>@transaction.Quantity</td>
+                <td>@transaction.PricePerUnit</td>
+                <td>@transaction.TransactionType.ToLower()</td>
+                <td>@transaction.MadeOn</td>                
+                <td><button><a href="/Portfolio/DeleteTransaction?id=@transaction.RowKey">Delete</a></button></td>
+            </tr>
+        }
+    }
+
+</table>

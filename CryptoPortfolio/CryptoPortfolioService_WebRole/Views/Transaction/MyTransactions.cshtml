@@ -1,0 +1,124 @@
+﻿@using Newtonsoft.Json
+
+@{
+    ViewBag.Title = "My Transactions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var transactions = ViewBag.Transactions as List<CryptoPortfolioService_Data.Entities.UserTransaction>;
+    var inflowByMonth = ViewBag.InflowByMonth as double[];
+    var outflowByMonth = ViewBag.OutflowByMonth as double[];
+    var inflowByDay = ViewBag.InflowByDay as double[];
+    var outflowByDay = ViewBag.OutflowByDay as double[];
+}
+
+<div class="container mt-5">
+    <h2>My Transactions</h2>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Currency</th>
+                <th>Amount</th>
+                <th>Fee</th>
+                <th>Transaction Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in transactions)
+            {
+<tr>
+    <td>@transaction.SenderEmail</td>
+    <td>@transaction.ReceiverEmail</td>
+    <td>@transaction.CurrencyName</td>
+    <td>@transaction.Amount</td>
+    <td>@transaction.Fee</td>
+    <td>@transaction.TransactionDate</td>
+</tr>            }
+        </tbody>
+    </table>
+
+    <h3 class="mt-5">Transaction Stats</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="monthlyInflowOutflowChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="dailyInflowOutflowChart"></canvas>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Prepare your data for the charts
+        var monthlyData = {
+            labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            datasets: [
+                {
+                    label: 'Inflow',
+                    data: @Html.Raw(JsonConvert.SerializeObject(inflowByMonth)),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Outflow',
+                    data: @Html.Raw(JsonConvert.SerializeObject(outflowByMonth)),
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        var dailyData = {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [
+                {
+                    label: 'Inflow',
+                    data: @Html.Raw(JsonConvert.SerializeObject(inflowByDay)),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Outflow',
+                    data: @Html.Raw(JsonConvert.SerializeObject(outflowByDay)),
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        // Create the charts
+        var ctxMonthly = document.getElementById('monthlyInflowOutflowChart').getContext('2d');
+        var monthlyChart = new Chart(ctxMonthly, {
+            type: 'bar',
+            data: monthlyData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctxDaily = document.getElementById('dailyInflowOutflowChart').getContext('2d');
+        var dailyChart = new Chart(ctxDaily, {
+            type: 'bar',
+            data: dailyData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}
+
+

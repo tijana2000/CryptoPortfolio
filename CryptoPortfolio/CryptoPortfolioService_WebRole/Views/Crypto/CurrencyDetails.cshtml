@@ -1,0 +1,49 @@
+﻿@model CryptoPortfolioService_WebRole.Models.CurrencyDetailsModel
+@{
+    ViewBag.Title = "CurrencyDetails";
+}
+
+<h2>CurrencyDetails</h2>
+
+<table class="table">
+    <tr>
+        <th>Symbol1</th>
+        <th>Symbol2</th>
+        <th>Min Price</th>
+        <th>Max Price</th>
+        <th>Last Price</th>
+    </tr>
+    <tr>
+        <td>@Model.Symbol1</td>
+        <td>@Model.Symbol2</td>
+        <td>@Model.MinPrice</td>
+        <td>@Model.MaxPrice</td>
+        <td>@Model.LastPrice</td>
+    </tr>
+</table>
+
+<form action="~/Portfolio/AddTransactionEntity" method="post">
+    <table class="table">
+        <tr hidden>
+            <td>Symbol1</td>
+            <td><input type="text" name="currencyName" value="@Model.Symbol1" /></td>
+        </tr>
+        <tr>
+            <td>Quantity:</td>
+            <td><input type="number" name="quantity" value="0" /></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td><input type="number" name="price" value="0" /></td>
+        </tr>
+        <tr>
+        <tr hidden>
+            <td>Buying</td>
+            <td><input type="hidden" id="IsBuying" name="IsBuying" value="True" /></td>
+        </tr>
+        <td colspan="2">
+            <input type="submit" value="Buy" />
+        </td>
+        </tr>
+    </table>
+</form>

@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Health Status";
+}
+
+<h2>Health Status</h2>
+
+<p>Uptime Percentage (Last 24 hours): @ViewBag.UptimePercentage %</p>
+
+<h3>Health Checks in the Last Hour</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>Status</th>
+            <th>Service</th>
+            <th>Instance</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var check in ViewBag.LastHourHealthChecks)
+        {
+            <tr>
+                <td>@check.Timestamp.UtcDateTime</td>
+                <td>@check.Status</td>
+                <td>@check.Service</td>
+                <td>@check.Instance</td>
+            </tr>
+        }
+    </tbody>
+</table>
